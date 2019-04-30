@@ -1,29 +1,59 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <el-container>
+    <el-header>
+      <Header></Header>
+    </el-header>
+    <el-container>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+      <el-aside width="400px">
+        <Aside></Aside>
+      </el-aside>
+    </el-container>
+    <el-footer>Footer</el-footer>
+  </el-container>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+  import Header from "./components/H-header"
+  import Aside from "./views/Aside"
+  export default {
+    components: {
+      Header,
+      Aside
+    },
   }
-}
+</script>
+
+<style>
+  @import "./style/common.scss";
+  .el-header{
+    background-color: #444;
+    color: #ccc;
+    line-height: 60px;
+    font-size: 13px;
+    padding: 10px 15px;
+  }
+
+  .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+  }
+
+  .el-aside {
+    background-color: #E9EEF3;
+  }
+
+  .el-main {
+    background-color: #E9EEF3;
+  }
+
+  body > .el-container {
+    margin-bottom: 40px;
+    height: 40px;
+  }
+
 </style>
