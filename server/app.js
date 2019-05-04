@@ -10,6 +10,7 @@ const mongoose = require("mongoose");
 const index = require("./routes/index");
 const users = require("./routes/users");
 const work = require("./routes/work");
+const message = require("./routes/message");
 
 // error handler
 onerror(app);
@@ -42,6 +43,7 @@ app.use(async (ctx, next) => {
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
 app.use(work.routes(), work.allowedMethods());
+app.use(message.routes(), message.allowedMethods());
 
 // error-handling
 app.on("error", (err, ctx) => {

@@ -3,7 +3,7 @@ module.exports = {
         proxy: {
             "/api": {
                 ws: false,
-                target: "https://cnodejs.org/api/v1 ",
+                target: "http://localhost:6789",
                 changeOrigin: true,
                 pathRewrite: {
                     "^/api": ""
@@ -11,4 +11,4 @@ module.exports = {
             }
         }
     }
-}
+};
