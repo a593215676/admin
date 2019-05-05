@@ -82,9 +82,9 @@
             </el-col>
             <el-col :span="12">
                 <el-row :gutter="10">
-                    <el-col :span="12" style="padding:0 10px;">
-                        <div style="height: 389px;padding:10px;background-color: white;position: relative;">
-                            <div style="display: flex;justify-content: space-between;padding-right: 20px;">
+                    <el-col :span="13">
+                        <div style="height: 409px;background-color: white;position: relative;">
+                            <div style="display: flex;justify-content: space-between;">
 <!--                                <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="changeall_">全选</el-checkbox>-->
                                 <div><input type="checkbox" :indeterminate="isIndeterminate" v-model="checked" @change="changeall_" :disabled="TodoList.length ===0 ? true :false " >全选</div>
                                 <div>Todo List</div>
@@ -100,14 +100,14 @@
                             </div>
                             <div style="margin: 12px 0;border-bottom: 1px solid #EBEFF5"></div>
                             <el-row>
-                                <el-col :span="6" style="text-align: center;height: 40px;line-height: 40px">{{num}} items left</el-col>
-                                <el-col :span="6" style="text-align: center;height: 40px;line-height: 40px"><span style="width: 100%;height: 100%;cursor: pointer"  @click="all_">All</span></el-col>
-                                <el-col :span="6" style="text-align: center;height: 40px;line-height: 40px"><span style="width: 100%;height: 100%;cursor: pointer"  @click="active_">Active</span></el-col>
+                                <el-col :span="9" style="text-align: center;height: 40px;line-height: 40px">{{num}} items left</el-col>
+                                <el-col :span="4" style="text-align: center;height: 40px;line-height: 40px"><span style="width: 100%;height: 100%;cursor: pointer"  @click="all_">All</span></el-col>
+                                <el-col :span="5" style="text-align: center;height: 40px;line-height: 40px"><span style="width: 100%;height: 100%;cursor: pointer"  @click="active_">Active</span></el-col>
                                 <el-col :span="6" style="text-align: center;height: 40px;line-height: 40px"><span style="width: 100%;height: 100%;cursor: pointer"  @click="completed_">Completed</span></el-col>
                             </el-row>
                         </div>
                     </el-col>
-                    <el-col :span="12">
+                    <el-col :span="11">
                         <div style="height: 409px;background-color: white">
                             <div style="height: 50%"><img src="" alt=""></div>
                             <div>

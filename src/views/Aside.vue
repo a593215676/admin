@@ -46,6 +46,14 @@
         background-color: darkorange;
         margin: 10px 0 0 20px;
     }
+    .box-card:last-child {
+        width: 150px;
+        height: 50px;
+        font-size: 15px;
+        border: none;
+        background-color: darkorange;
+        margin: 10px 0 30px 20px;
+    }
    a{
        text-decoration: none;
        color: white;

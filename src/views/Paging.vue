@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="margin-bottom: 25px">
-            <input type="text" placeholder="请输入您要搜索的商品名称" style="height: 30px;width: 300px;padding-left: 10px;border-radius: 5px;outline: none">
+            <input type="text" placeholder="请输入您要搜索的商品名称" class="serach" v-model="serach" @input="ser(serach)">
         </div>
         <el-container>
             <el-card class="box-card">
@@ -16,29 +16,28 @@
                         </tr>
                       <tbody>
                           <tr  v-for="(item,index) in flag === 0 ? citys.slice((this.ye-1)*this.con,this.con*this.ye) : goods.slice((this.ye-1)*this.con,this.con*this.ye)" :class="index%2 === 0 ? 'row1' : 'row2'">
-                              <td style="width: 25%;text-align: center">{{item.NAME}}</td>
+                              <td style="width: 30%;text-align: center">{{item.NAME}}</td>
                               <td style="width: 17%;text-align: center">{{item.GOODS_SERIAL_NUMBER}}</td>
                               <td style="width: 18%;text-align: center">{{item.ORI_PRICE}}</td>
-                              <td style="width: 20%;text-align: center">{{item.PRESENT_PRICE}}</td>
-                              <td style="width: 20%;text-align: center;">
-                                  <el-button type="text" @click="outerVisible = true">修改</el-button>
+                              <td style="width: 18%;text-align: center">{{item.PRESENT_PRICE}}</td>
+                              <td style="width: 17%;text-align: center;">
+                                  <el-button type="text" @click="revise(item,index)">修改</el-button>
                                   <el-button type="text" @click="del(item)">删除</el-button>
-                                  <el-dialog title="提示" :visible.sync="outerVisible" width="30%">
-                                        <span>
-                                            <p style="margin-bottom: 15px">名称：<input type='text' v-model='item.NAME' style='height: 30px;width: 250px'></p>
-                                            <p style="margin-bottom: 15px">原价：<input type='text' v-model='item.ORI_PRICE' style='height: 30px;width: 250px'></p>
-                                            <p style="margin-bottom: 15px">现价：<input type='text' v-model='item.PRESENT_PRICE' style='height: 30px;width: 250px'></p>
-                                        </span>
-                                                      <span slot="footer" class="dialog-footer">
-                                            <el-button @click="centerDialogVisible = false">取 消</el-button>
-                                            <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
-                                         </span>
-                                  </el-dialog>
                               </td>
                           </tr>
                       </tbody>
                     </table>
-
+                    <el-dialog title="提示" :visible.sync="outerVisible" width="30%">
+                                        <span>
+                                            <p style="margin-bottom: 15px">名称：<input type='text' v-model='NAME' style='height: 30px;width: 250px'></p>
+                                            <p style="margin-bottom: 15px">原价：<input type='text' v-model='ORI_PRICE' style='height: 30px;width: 250px'></p>
+                                            <p style="margin-bottom: 15px">现价：<input type='text' v-model='PRESENT_PRICE' style='height: 30px;width: 250px'></p>
+                                        </span>
+                        <span slot="footer" class="dialog-footer">
+                                            <el-button @click="outerVisible = false">取 消</el-button>
+                                            <el-button type="primary" @click="unped">确 定</el-button>
+                                         </span>
+                    </el-dialog>
                 </div>
                 <br>
                 <div class="block">
@@ -62,48 +61,34 @@
         name: "Paging",
         data() {
             return {
+                serach:'',
                 currentPage: 1,
                 con:10,
                 ye:1,
                 goods:[],
+                sergoods:[],
+                oldgoods:[],
                 flag:0,
-                NAME:'',
                 outerVisible:false,
+                NAME:'',
+                num:0,
                 PRESENT_PRICE:'',
                 ORI_PRICE:'',
+                newgoods:[]
             }
         },
         mounted(){
             this.$store.dispatch("getCity");
         },
         methods: {
-            revise(row) {
+            revise(row,index) {
                 this.flag = 1
+                this.outerVisible = true
                 this.NAME = row.NAME
+                this.num = index
                 this.ORI_PRICE = row.ORI_PRICE
                 this.PRESENT_PRICE = row.PRESENT_PRICE
-                this.$confirm(
-                    "<div style='margin-bottom: 10px'>名称：<input type='text' v-model='NAME' style='height: 30px;width: 250px'></div>" +
-                    "<div style='margin-bottom: 10px'>原价：<input type='text' v-model='ORI_PRICE' style='height: 30px;width: 250px'></div>" +
-                    "<div style='margin-bottom: 10px'>现价：<input type='text' v-model='PRESENT_PRICE' style='height: 30px;width: 250px'></div>",
-                    '商品信息',
-                    {
-                    dangerouslyUseHTMLString: true
-                    }, {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                    }).then(() => {
-                        this.$message({
-                            type: 'success',
-                            message: '修改成功!'
-                        });
-                    }).catch(() => {
-                        this.$message({
-                            type: 'info',
-                            message: '已取消修改'
-                        })
-                    })
+                this.newgoods = row
             },
             del(row){
                 this.flag = 1
@@ -127,8 +112,13 @@
                         message: '已取消删除'
                     });
                 });
-
-
+            },
+            unped(){
+                this.newgoods.NAME =  this.NAME
+                this.newgoods.ORI_PRICE =  this.ORI_PRICE
+                this.newgoods.PRESENT_PRICE =  this.PRESENT_PRICE
+                this.goods[this.num] = this.newgoods
+                this.outerVisible = false
             },
             handleSizeChange(val) {
                 this.con=val
@@ -136,10 +126,24 @@
             handleCurrentChange(val) {
                 this.ye=val
             },
+            ser(msg){
+                if(msg !==''){
+                    this.flag = 1
+                    this.goods = this.goods.filter((item,index) =>{
+                        if( this.goods[index].NAME.indexOf(msg) !== -1){
+                            return this.sergoods.push(this.goods[index])
+                        }
+                    })
+                }else {
+                    this.goods = this.oldgoods
+                }
+
+            }
         },
         computed: {
             citys() {
                 this.goods = this.$store.state.citys
+                this.oldgoods = this.$store.state.citys
                 return  this.$store.state.citys
             },
         },
@@ -166,5 +170,12 @@
         line-height: 50px;
         background-color: darkgray;
         color: black;
+    }
+    .serach{
+        height: 30px;
+        width: 300px;
+        padding-left: 10px;
+        border-radius: 5px;
+        outline: none;
     }
 </style>

@@ -1,11 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import about from './views/About.vue'
-import Export from './views/Export.vue'
-import Mark from './views/Mark.vue'
-import Upload from './views/Upload.vue'
-import Articles from './views/Articles.vue'
-import Paging from './views/Paging.vue'
+
 
 
 Vue.use(Router)
