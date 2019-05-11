@@ -26,10 +26,6 @@ const Cants = new Cont({
     type: String,
     required: true
   },
-  content: {
-    type: String,
-    required: true
-  },
   data: {
     type: Date,
     default: Date.now

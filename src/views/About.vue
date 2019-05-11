@@ -86,17 +86,17 @@
                         <div style="height: 409px;background-color: white;position: relative;">
                             <div style="display: flex;justify-content: space-between;">
 <!--                                <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="changeall_">全选</el-checkbox>-->
-                                <div><input type="checkbox" :indeterminate="isIndeterminate" v-model="checked" @change="changeall_" :disabled="TodoList.length ===0 ? true :false " >全选</div>
+                                <div><input type="checkbox"  v-model="checked" @change="changeall_" :disabled=" TodoList.length === 0 ? true : false " >全选</div>
                                 <div>Todo List</div>
                             </div>
                             <div style="margin: 12px 0;border-bottom: 1px solid #EBEFF5"></div>
-                            <div>
-                                <p v-for="(item,index) in TodoList"   style="height: 35px;line-height: 35px;cursor: pointer">
+                            <div v-for="(item,index) in TodoList"  class="todo" style="height: 35px;line-height: 35px;padding:0 20px 0 10px;cursor: pointer;display: flex;justify-content: space-between">
+                                <p>
                                     <input type="checkbox"  v-model="item.checked" @change="change_(item,index)" >{{item.conts}}
                                 </p>
-                            </div>
-                            <div style="width: 50px; height: 100%;position: absolute;right: 0;top:50px;" >
-                                <p class="" v-for="(item,index) in TodoList" @click="del(item,index)" style="height: 35px;line-height: 35px;cursor: pointer"><span class="el-icon-close"></span></p>
+                                <p class="del" @click="del(item,index)" style="height: 35px;line-height: 35px;cursor: pointer">
+                                    <span class="el-icon-close"></span>
+                                </p>
                             </div>
                             <div style="margin: 12px 0;border-bottom: 1px solid #EBEFF5"></div>
                             <el-row>
@@ -153,7 +153,6 @@
         this.chartSettings2 = contents.chartSettings2
         this.chartSettings3 = contents.chartSettings3
       return {
-          // checkAll:false,
           checked:false,
           isIndeterminate: true,
           checkedList:[],
@@ -350,5 +349,11 @@
         border-top-color: transparent;
         border-right-color: transparent;
         transform: rotate(-45deg);
+    }
+    .del{
+        display: none;
+    }
+    .todo:hover .del{
+        display: inline-block;
     }
 </style>

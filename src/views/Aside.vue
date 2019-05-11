@@ -1,7 +1,7 @@
 <template>
     <el-row style="width: 100px;">
         <el-card class="box-card">
-            <span class="el-icon-location-outline" style="color: #00B7FF"></span><router-link to="/">首页</router-link>
+            <span class="el-icon-location-outline" style="color: #00B7FF"></span><router-link to="/about">首页</router-link>
         </el-card>
         <br>
         <el-card class="box-card">
@@ -18,11 +18,11 @@
 
         <br>
         <el-card class="box-card">
-            <router-link to="./Upload"><img src="../image/folder-open-fill.png" alt="" width="15px" height="15px">发布文章</router-link>
+            <router-link to="./editor"><img src="../image/folder-open-fill.png" alt="" width="15px" height="15px">发布文章</router-link>
         </el-card>
         <br>
         <el-card class="box-card">
-            <router-link to="./Upload"><img src="../image/setting.png" alt="" width="15px" height="15px">导出excel</router-link>
+            <router-link to="./Export"><img src="../image/setting.png" alt="" width="15px" height="15px">导出excel</router-link>
         </el-card>
         <br>
         <el-card class="box-card">

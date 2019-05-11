@@ -1,17 +1,20 @@
 <template>
-  <el-container>
-    <el-header>
-      <Header></Header>
-    </el-header>
-    <el-container>
-      <el-aside style="width: 200px">
-        <Aside></Aside>
-      </el-aside>
-      <el-main>
-        <router-view></router-view>
-      </el-main>
+  <div id="app">
+    <router-view v-if="$route.path ==='/login'||$route.path ==='/'"></router-view>
+    <el-container v-else>
+      <el-header>
+        <Header></Header>
+      </el-header>
+      <el-container>
+        <el-aside style="width: 200px">
+          <Aside></Aside>
+        </el-aside>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
